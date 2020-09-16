@@ -9,7 +9,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 
-class BaseApp : Application() {
+open class BaseApp : Application() {
     override fun registerComponentCallbacks(callback: ComponentCallbacks?) {
         super.registerComponentCallbacks(callback)
     }
