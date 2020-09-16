@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "384099438995",
+    "firebase_url": "https://appyhighutils.firebaseio.com",
+    "project_id": "appyhighutils",
+    "storage_bucket": "appyhighutils.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384099438995:android:edb9c9c1177de2ccaad866",
+        "android_client_info": {
+          "package_name": "com.appyhigh.mylibrary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384099438995-qobmkl58d798j8q7or0l2sars4pia16f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-NJpblpDXhIEDDbXj6tQQrNxKFHUojFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384099438995-qobmkl58d798j8q7or0l2sars4pia16f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

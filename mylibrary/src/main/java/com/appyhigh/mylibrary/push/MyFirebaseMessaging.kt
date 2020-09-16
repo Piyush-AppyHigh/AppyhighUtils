@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.appyhigh.mylibrary.R
+import com.appyhigh.mylibrary.misc.Constants.FCM_TARGET_ACTIVIY
 import com.appyhigh.mylibrary.misc.getBitmapfromUrl
 import com.clevertap.android.sdk.CleverTapAPI
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -135,7 +136,7 @@ class MyFirebaseMessaging : FirebaseMessagingService() {
             val intent =
                 Intent(
                     applicationContext,
-                    ComponentName(this, "com.appyhigh.MainActivity")::class.java
+                    ComponentName(this, FCM_TARGET_ACTIVIY)::class.java
                 )
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
