@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.appyhigh.mylibrary.R
+import com.appyhigh.mylibrary.misc.Constants.FCM_ICON
 import com.appyhigh.mylibrary.misc.Constants.FCM_TARGET_ACTIVIY
 import com.appyhigh.mylibrary.misc.getBitmapfromUrl
 import com.clevertap.android.sdk.CleverTapAPI
@@ -135,8 +136,7 @@ class MyFirebaseMessaging : FirebaseMessagingService() {
             val a = rand.nextInt(101) + 1
             val intent =
                 Intent(
-                    applicationContext,
-                    ComponentName(this, FCM_TARGET_ACTIVIY)::class.java
+                    applicationContext, ComponentName(this, FCM_TARGET_ACTIVIY)::class.java
                 )
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -152,7 +152,7 @@ class MyFirebaseMessaging : FirebaseMessagingService() {
             val notificationBuilder: NotificationCompat.Builder =
                 NotificationCompat.Builder(applicationContext)
                     .setLargeIcon(image) /*Notification icon image*/
-                    .setSmallIcon(R.drawable.app_logo_24dp)
+                    .setSmallIcon(FCM_ICON)
                     .setContentTitle(messageBody)
                     .setStyle(
                         NotificationCompat.BigPictureStyle()
