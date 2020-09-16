@@ -12,8 +12,7 @@ import java.net.URL
 fun getBitmapfromUrl(imageUrl: String?): Bitmap? {
     return try {
         val url = URL(imageUrl)
-        val connection =
-            url.openConnection() as HttpURLConnection
+        val connection = url.openConnection() as HttpURLConnection
         connection.doInput = true
         connection.connect()
         val input = connection.inputStream

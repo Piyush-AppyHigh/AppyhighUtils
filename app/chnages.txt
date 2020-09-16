@@ -1,0 +1,7 @@
+
+.push test
+.ads test
+.inapp
+.remote config
+.dynamic links
+.events

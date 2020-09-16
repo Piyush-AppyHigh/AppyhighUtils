@@ -5,6 +5,7 @@ import android.content.ComponentCallbacks
 import android.content.res.Configuration
 import com.appyhigh.mylibrary.misc.Constants.FCM_DEBUG_TOPIC
 import com.appyhigh.mylibrary.misc.Constants.FCM_RELASE_TOPIC
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
@@ -38,6 +39,8 @@ open class BaseApp : Application() {
             FirebaseMessaging.getInstance().subscribeToTopic(FCM_DEBUG_TOPIC)
         else
             FirebaseMessaging.getInstance().subscribeToTopic(FCM_RELASE_TOPIC)
+
+        MobileAds.initialize(this)
     }
 
     override fun onTerminate() {
