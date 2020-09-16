@@ -1,5 +1,5 @@
 # AppyhighUtils
 lib for android devs
-[![](https://jitpack.io/v/PrasadVennamAppy/AppyhighUtils.svg)](https://jitpack.io/#PrasadVennamAppy/AppyhighUtils)
 
- implementation 'com.github.PrasadVennamAppy:AppyhighUtils:1.0.0'
+
+implementation 'com.github.PrasadVennamAppy:AppyhighUtils:[![](https://jitpack.io/v/PrasadVennamAppy/AppyhighUtils.svg)](https://jitpack.io/#PrasadVennamAppy/AppyhighUtils)
