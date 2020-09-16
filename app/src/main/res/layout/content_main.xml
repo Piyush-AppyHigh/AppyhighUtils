@@ -9,5 +9,5 @@
         android:id="@+id/template_ad_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:gnt_template_type="@layout/gnt_small_template_view" />
+        app:gnt_template_type="@layout/gnt_medium_template_view" />
 </RelativeLayout>
