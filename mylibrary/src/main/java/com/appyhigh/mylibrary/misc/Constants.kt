@@ -1,8 +1,8 @@
 package com.appyhigh.mylibrary.misc
 
 object Constants {
-    val FCM_DEBUG_TOPIC = ""
-    val FCM_RELASE_TOPIC = ""
-    var FCM_TARGET_ACTIVIY = ""
+    var FCM_DEBUG_TOPIC = ""
+    var FCM_RELEASE_TOPIC = ""
+    var FCM_TARGET_ACTIVITY = ""
     var FCM_ICON :Int = 0
 }

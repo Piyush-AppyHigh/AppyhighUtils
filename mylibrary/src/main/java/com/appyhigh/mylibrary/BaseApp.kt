@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.ComponentCallbacks
 import android.content.res.Configuration
 import com.appyhigh.mylibrary.misc.Constants.FCM_DEBUG_TOPIC
-import com.appyhigh.mylibrary.misc.Constants.FCM_RELASE_TOPIC
+import com.appyhigh.mylibrary.misc.Constants.FCM_RELEASE_TOPIC
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -38,7 +38,7 @@ open class BaseApp : Application() {
         if (BuildConfig.DEBUG)
             FirebaseMessaging.getInstance().subscribeToTopic(FCM_DEBUG_TOPIC)
         else
-            FirebaseMessaging.getInstance().subscribeToTopic(FCM_RELASE_TOPIC)
+            FirebaseMessaging.getInstance().subscribeToTopic(FCM_RELEASE_TOPIC)
 
         MobileAds.initialize(this)
     }

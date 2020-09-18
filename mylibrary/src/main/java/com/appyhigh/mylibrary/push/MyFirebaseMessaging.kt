@@ -1,29 +1,28 @@
 package com.appyhigh.mylibrary.push
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import com.appyhigh.mylibrary.R
 import com.appyhigh.mylibrary.misc.Constants.FCM_ICON
-import com.appyhigh.mylibrary.misc.Constants.FCM_TARGET_ACTIVIY
+import com.appyhigh.mylibrary.misc.Constants.FCM_TARGET_ACTIVITY
 import com.appyhigh.mylibrary.misc.getBitmapfromUrl
 import com.clevertap.android.sdk.CleverTapAPI
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.*
 
-class MyFirebaseMessaging : FirebaseMessagingService() {
+class MyFirebaseMessaging(context: Context) : FirebaseMessagingService() {
     var bitmap: Bitmap? = null
 
     override fun onMessageSent(s: String) {
@@ -136,7 +135,7 @@ class MyFirebaseMessaging : FirebaseMessagingService() {
             val a = rand.nextInt(101) + 1
             val intent =
                 Intent(
-                    applicationContext, ComponentName(this, FCM_TARGET_ACTIVIY)::class.java
+                    applicationContext, ComponentName(this, FCM_TARGET_ACTIVITY)::class.java
                 )
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -153,7 +152,8 @@ class MyFirebaseMessaging : FirebaseMessagingService() {
                 NotificationCompat.Builder(applicationContext)
                     .setLargeIcon(image) /*Notification icon image*/
                     .setSmallIcon(FCM_ICON)
-                    .setContentTitle(messageBody)
+                    .setContentTitle(title)
+                    .setContentText(messageBody)
                     .setStyle(
                         NotificationCompat.BigPictureStyle()
                             .bigPicture(image)
@@ -188,8 +188,66 @@ class MyFirebaseMessaging : FirebaseMessagingService() {
         }
     }
 
-
     companion object {
         private const val TAG = "FirebaseMessageService"
+        fun checkForNotifications(
+            context: Context,
+            intent: Intent,
+            webViewActivity: Class<out Activity?>?
+        ) {
+            try {
+                val which = intent.getStringExtra("which")
+                val url = intent.getStringExtra("url")
+                val title = intent.getStringExtra("title")
+                Log.d("111__which2", which!!)
+                Log.d("111__url2", url!!)
+                Log.d("111__title2", title!!)
+                when (which) {
+                    "B" -> {
+                        try {
+                            val intent1 = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context.startActivity(intent1)
+                        } catch (e: ActivityNotFoundException) {
+                            Toast.makeText(context, "Unable to open the link", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    "P" -> {
+                        try {
+                            val intent1 =
+                                Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$url"))
+                            context.startActivity(intent1)
+                        } catch (e: ActivityNotFoundException) {
+                            e.printStackTrace()
+                            val intent1 = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=$url")
+                            )
+                            context.startActivity(intent1)
+                        }
+                    }
+                    "L" -> {
+                        try {
+                            val intent1 = Intent(context, webViewActivity)
+                            intent1.putExtra("url", url)
+                            intent1.putExtra("title", title)
+                            context.startActivity(intent1)
+                        } catch (e: java.lang.Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    else -> {
+                        Log.d(
+                            TAG,
+                            "No event fired"
+                        )
+                    }
+                }
+            } catch (e: java.lang.Exception) {
+                Log.e(
+                    TAG,
+                    "checkForNotifications: \$e"
+                )
+            }
+        }
     }
 }
