@@ -22,7 +22,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.*
 
-class MyFirebaseMessaging(context: Context) : FirebaseMessagingService() {
+class MyFirebaseMessaging: FirebaseMessagingService() {
     var bitmap: Bitmap? = null
 
     override fun onMessageSent(s: String) {
