@@ -134,9 +134,7 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
             val rand = Random()
             val a = rand.nextInt(101) + 1
             val intent =
-                Intent(
-                    applicationContext, ComponentName(this, FCM_TARGET_ACTIVITY)::class.java
-                )
+                Intent(applicationContext, FCM_TARGET_ACTIVITY)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("which", which)
@@ -163,7 +161,7 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
                     .setContentIntent(pendingIntent)
                     .setPriority(Notification.PRIORITY_DEFAULT)
             val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 // The id of the channel.
                 val id = "messenger_general"
@@ -193,60 +191,69 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
         fun checkForNotifications(
             context: Context,
             intent: Intent,
-            webViewActivity: Class<out Activity?>?
+            webViewActivityToOpen: Class<out Activity?>?,
+            activityToOpen: Class<out Activity?>?,
+            intentParam: String
         ) {
             try {
                 val which = intent.getStringExtra("which")
-                val url = intent.getStringExtra("url")
+                val url = intent.getStringExtra("link")
                 val title = intent.getStringExtra("title")
-                Log.d("111__which2", which!!)
-                Log.d("111__url2", url!!)
-                Log.d("111__title2", title!!)
+
                 when (which) {
                     "B" -> {
                         try {
                             val intent1 = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent1)
                         } catch (e: ActivityNotFoundException) {
-                            Toast.makeText(context, "Unable to open the link", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Unable to open the link", Toast.LENGTH_LONG)
+                                .show()
                         }
                     }
                     "P" -> {
                         try {
-                            val intent1 =
-                                Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$url"))
+                            val intent1 = Intent(
+                                Intent.ACTION_VIEW, Uri.parse(
+                                    "market://details?id=$url"
+                                )
+                            )
                             context.startActivity(intent1)
                         } catch (e: ActivityNotFoundException) {
                             e.printStackTrace()
                             val intent1 = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://play.google.com/store/apps/details?id=$url")
+                                Intent.ACTION_VIEW, Uri.parse(
+                                    "https://play.google.com/store/apps/details?id=$url"
+                                )
                             )
                             context.startActivity(intent1)
                         }
                     }
                     "L" -> {
                         try {
-                            val intent1 = Intent(context, webViewActivity)
-                            intent1.putExtra("url", url)
+                            val intent1 = Intent(context, webViewActivityToOpen)
+                            intent1.putExtra("link", url)
                             intent1.putExtra("title", title)
                             context.startActivity(intent1)
-                        } catch (e: java.lang.Exception) {
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    "D" -> {
+                        try {
+                            val intent1 = Intent(context, activityToOpen)
+                            intent1.putExtra(intentParam, url)
+                            context.startActivity(intent1)
+                        } catch (e: Exception) {
                             e.printStackTrace()
                         }
                     }
                     else -> {
-                        Log.d(
-                            TAG,
-                            "No event fired"
-                        )
+                        Log.d(TAG, "No event fired")
                     }
                 }
-            } catch (e: java.lang.Exception) {
-                Log.e(
-                    TAG,
-                    "checkForNotifications: \$e"
-                )
+            } catch (e: Exception) {
+                Log.e(TAG, "checkForNotifications: \$e")
+//                Dont push
             }
         }
     }
